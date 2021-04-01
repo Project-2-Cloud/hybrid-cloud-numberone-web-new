@@ -3,8 +3,51 @@
     * Copyright 2013-2020 Start Bootstrap
     * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
     */
-    (function ($) {
+
+document.getElementById("subscribe").addEventListener("click",function(){
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+    let mail = document.getElementById("inputEmail");
+    
+    if(emailIsValid(mail))
+    {
+        Toast.fire({
+        icon: 'success',
+        title: 'You are all set now!'
+        })
+    }else if (!emailIsValid(mail)){
+        Toast.fire({
+        icon: 'warning',
+        title: 'Please enter a valid email.'
+        })
+    }
+    mail.value=""
+});
+
+function emailIsValid (email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)
+}
+
+(function ($) {
     "use strict"; // Start of use strict
+
+
+    //subscribe
+    document.getElementById("subscribe").addEventListener("click",function(){
+        console.log("click1");
+        var mail = $('#inputEmail');
+        $('#modalEmail').html("A email is send to: "+ mail.val());
+        mail.val("");
+    })
 
     // Smooth scrolling using jQuery easing
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
@@ -54,3 +97,4 @@
     // Collapse the navbar when page is scrolled
     $(window).scroll(navbarCollapse);
 })(jQuery); // End of use strict
+
